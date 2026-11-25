@@ -3,6 +3,7 @@ import {
   LaneBoundary_Classification_Type,
   LaneBoundary_Classification_Color,
   MovingObject_Type,
+  MovingObject_VehicleClassification_Type,
   StationaryObject_Classification_Color,
   StationaryObject_Classification_Density,
   StationaryObject_Classification_Material,
@@ -23,6 +24,32 @@ export const MOVING_OBJECT_COLOR: Record<MovingObject_Type, Color> = {
   [MovingObject_Type.VEHICLE]: ColorCode("r", 0.5),
   [MovingObject_Type.PEDESTRIAN]: ColorCode("y", 0.5),
   [MovingObject_Type.ANIMAL]: ColorCode("g", 0.5),
+};
+
+/**
+ * Colors per OSI vehicle classification type, applied to moving objects of type VEHICLE.
+ * Car sizes share one color; host vehicle blue is avoided.
+ * Note: MEDIUM_CAR is an alias of CAR (same enum value) and is covered by the CAR entry.
+ */
+export const VEHICLE_TYPE_COLOR: Record<MovingObject_VehicleClassification_Type, Color> = {
+  [MovingObject_VehicleClassification_Type.UNKNOWN]: ColorCode("r", 0.5),
+  [MovingObject_VehicleClassification_Type.OTHER]: ColorCode("r", 0.5),
+  [MovingObject_VehicleClassification_Type.SMALL_CAR]: ColorCode("r", 0.5),
+  [MovingObject_VehicleClassification_Type.COMPACT_CAR]: ColorCode("r", 0.5),
+  [MovingObject_VehicleClassification_Type.CAR]: ColorCode("r", 0.5),
+  [MovingObject_VehicleClassification_Type.LUXURY_CAR]: ColorCode("r", 0.5),
+  [MovingObject_VehicleClassification_Type.DELIVERY_VAN]: ColorCode("orange", 0.5),
+  [MovingObject_VehicleClassification_Type.HEAVY_TRUCK]: { r: 0.6, g: 0.3, b: 0.1, a: 0.5 }, // brown
+  [MovingObject_VehicleClassification_Type.SEMITRACTOR]: { r: 0.6, g: 0.3, b: 0.1, a: 0.5 }, // brown
+  [MovingObject_VehicleClassification_Type.SEMITRAILER]: { r: 0.8, g: 0.6, b: 0.4, a: 0.5 }, // tan
+  [MovingObject_VehicleClassification_Type.TRAILER]: { r: 0.8, g: 0.6, b: 0.4, a: 0.5 }, // tan
+  [MovingObject_VehicleClassification_Type.MOTORBIKE]: ColorCode("m", 0.5),
+  [MovingObject_VehicleClassification_Type.BICYCLE]: { r: 0.6, g: 0.2, b: 1, a: 0.5 }, // purple
+  [MovingObject_VehicleClassification_Type.BUS]: { r: 0, g: 0.5, b: 0.5, a: 0.5 }, // teal
+  [MovingObject_VehicleClassification_Type.TRAM]: { r: 1, g: 0.4, b: 0.7, a: 0.5 }, // pink
+  [MovingObject_VehicleClassification_Type.TRAIN]: { r: 0.3, g: 0.3, b: 0.3, a: 0.5 }, // dark gray
+  [MovingObject_VehicleClassification_Type.WHEELCHAIR]: { r: 1, g: 0.8, b: 0.5, a: 0.5 }, // light orange
+  [MovingObject_VehicleClassification_Type.STANDUP_SCOOTER]: { r: 0.6, g: 1, b: 0.2, a: 0.5 }, // lime
 };
 
 export const LANE_BOUNDARY_TYPE: Record<LaneBoundary_Classification_Type, Color> = {

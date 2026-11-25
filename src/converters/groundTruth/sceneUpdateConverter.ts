@@ -1,6 +1,10 @@
 import { buildLaneBoundaryEntity, buildLaneEntity } from "@features/lanes";
 import { buildLogicalLaneBoundaryEntity, buildLogicalLaneEntity } from "@features/logicallanes";
-import { createModelPrimitive, buildMovingObjectEntity } from "@features/movingobjects";
+import {
+  createModelPrimitive,
+  buildMovingObjectEntity,
+  getMovingObjectColor,
+} from "@features/movingobjects";
 import { buildReferenceLineEntity } from "@features/referenceline";
 import { buildRoadMarkingEntity } from "@features/roadmarkings";
 import { buildStationaryObjectEntity } from "@features/stationaryobjects";
@@ -36,11 +40,7 @@ import {
   GroundTruthContext,
 } from "./types";
 
-import {
-  HOST_OBJECT_COLOR,
-  MOVING_OBJECT_COLOR,
-  STATIONARY_OBJECT_COLOR,
-} from "@/config/constants";
+import { HOST_OBJECT_COLOR, STATIONARY_OBJECT_COLOR } from "@/config/constants";
 import {
   PREFIX_LANE,
   PREFIX_LANE_BOUNDARY,
@@ -101,7 +101,7 @@ function buildSceneEntities(
         modelCache,
       );
     } else {
-      const objectColor = MOVING_OBJECT_COLOR[obj.type];
+      const objectColor = getMovingObjectColor(obj);
       entity = buildMovingObjectEntity(
         obj,
         objectColor,

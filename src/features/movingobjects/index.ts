@@ -8,6 +8,7 @@ import {
 import { ArrowPrimitive, Color, CubePrimitive, ModelPrimitive } from "@foxglove/schemas";
 import {
   MovingObject,
+  MovingObject_Type,
   MovingObject_VehicleClassification_LightState_BrakeLightState,
   MovingObject_VehicleClassification_LightState_IndicatorState,
 } from "@lichtblick/asam-osi-types";
@@ -23,6 +24,25 @@ import { generateSceneEntityId, PartialSceneEntity } from "@utils/scene";
 import { DeepRequired } from "ts-essentials";
 
 import { buildMovingObjectMetadata } from "./metadata";
+
+import { MOVING_OBJECT_COLOR, VEHICLE_TYPE_COLOR } from "@/config/constants";
+
+/**
+ * Returns the display color of a moving object. Vehicles are colored by their
+ * vehicle classification type; other objects by their moving object type.
+ */
+export function getMovingObjectColor(movingObject: DeepRequired<MovingObject>): Color {
+  if (movingObject.type === MovingObject_Type.VEHICLE) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const vehicleColor = VEHICLE_TYPE_COLOR[movingObject.vehicle_classification?.type];
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (vehicleColor != undefined) {
+      return vehicleColor;
+    }
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  return MOVING_OBJECT_COLOR[movingObject.type] ?? MOVING_OBJECT_COLOR[MovingObject_Type.UNKNOWN];
+}
 
 export function createModelPrimitive(
   movingObject: DeepRequired<MovingObject>,
